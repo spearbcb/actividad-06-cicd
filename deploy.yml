@@ -1,0 +1,50 @@
+name: CD - Despliegue continuo (Preview y Producción)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  # ------------------------------------------------------------------
+  # 1) ENTORNO DE PRUEBA (Preview Deployment)
+  #    Se ejecuta en cada Pull Request y publica una versión temporal
+  #    del cambio, con un enlace comentado automáticamente en el PR.
+  # ------------------------------------------------------------------
+  preview:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Publicar Preview Deployment
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
+
+  # ------------------------------------------------------------------
+  # 2) DESPLIEGUE FINAL (Producción)
+  #    Se ejecuta solo cuando el Pull Request se fusiona a main.
+  # ------------------------------------------------------------------
+  production:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Publicar en GitHub Pages (producción)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          keep_files: true
