@@ -1,1 +1,29 @@
+name: CI - Validación de código
 
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-html:
+    name: Validar HTML/CSS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar HTMLHint
+        run: npm install -g htmlhint
+
+      - name: Validar estructura del HTML
+        run: htmlhint index.html
+
+      - name: Confirmar resultado
+        run: echo "✅ Validación completada sin errores críticos"
