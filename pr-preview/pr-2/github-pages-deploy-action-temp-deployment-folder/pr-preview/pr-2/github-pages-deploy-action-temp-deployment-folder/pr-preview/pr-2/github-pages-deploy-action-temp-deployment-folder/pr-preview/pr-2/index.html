@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actividad de la semana 06 - CI/CD Demostracion </title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>Despliegue Continuo y Flujo de Trabajo CI/CD de tu proyecto :D </h1>
+    <p class="subtitle">Instituto La Recoleta · Diseño y Programación Web</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>¿Qué hace esta página?</h2>
+      <p>
+        Este es el proyecto base de la <strong>Actividad 06</strong>. Sirve como
+        evidencia de un flujo de trabajo automatizado (CI/CD) que va desde una
+        rama de trabajo (<em>feature branch</em>) hasta la publicación final
+        en producción, pasando por una revisión de código y un entorno de
+        prueba (<em>Preview Deployment</em>).
+      </p>
+      <button id="btnEstado">Ver estado del despliegue</button>
+      <p id="estado" class="estado"></p>
+    </section>
+
+    <section class="card">
+      <h2>Flujo implementado</h2>
+      <ol>
+        <li>Se crea una rama <code>feature/*</code> con un cambio.</li>
+        <li>El <em>push</em> dispara el workflow de integración continua (lint/validación).</li>
+        <li>Se abre un <em>Pull Request</em> hacia <code>main</code>.</li>
+        <li>El workflow despliega automáticamente un <em>Preview</em> del cambio.</li>
+        <li>Se revisa el Preview y el código (Code Review) antes de aprobar.</li>
+        <li>Al hacer <em>merge</em> a <code>main</code>, se despliega la versión final en producción.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>Versión desplegada automáticamente vía GitHub Actions.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
